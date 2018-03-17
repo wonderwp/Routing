@@ -2,7 +2,7 @@
 
 namespace WonderWp\Component\Routing\Route;
 
-use WonderWp\Framework\AbstractPlugin\AbstractPluginManager;
+use WonderWp\Component\PluginSkeleton\AbstractPluginManager;
 
 /**
  * AbstractRouteService defines methods to add routes in the app.

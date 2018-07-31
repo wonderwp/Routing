@@ -2,23 +2,21 @@
 
 namespace WonderWp\Component\Routing\Route;
 
-use WonderWp\Component\PluginSkeleton\AbstractPluginManager;
+use WonderWp\Component\Service\AbstractService;
 
 /**
  * AbstractRouteService defines methods to add routes in the app.
  */
-abstract class AbstractRouteService implements RouteServiceInterface
+abstract class AbstractRouteService extends AbstractService implements RouteServiceInterface
 {
     /** @var array */
     protected $routes = [];
 
-    /** @var AbstractPluginManager */
+    /** @var \WonderWp\Component\PluginSkeleton\AbstractPluginManager */
     protected $manager;
 
-    /** @var AbstractPluginManager */
-    protected $publicController;
-
     /**
+     * @codeCoverageIgnore
      * Get registered routes. Must be overriden.
      *
      * @return array
@@ -41,8 +39,7 @@ abstract class AbstractRouteService implements RouteServiceInterface
     abstract public function getRoutes();
 
     /**
-     * @codeCoverageIgnore
-     * @return AbstractPluginManager
+     * @return \WonderWp\Component\PluginSkeleton\AbstractPluginManager
      */
     public function getManager()
     {
@@ -50,36 +47,13 @@ abstract class AbstractRouteService implements RouteServiceInterface
     }
 
     /**
-     * @codeCoverageIgnore
-     * @param AbstractPluginManager $manager
+     * @param \WonderWp\Component\PluginSkeleton\AbstractPluginManager $manager
      *
      * @return static
      */
     public function setManager($manager)
     {
         $this->manager = $manager;
-
-        return $this;
-    }
-
-    /**
-     * @codeCoverageIgnore
-     * @return AbstractPluginManager
-     */
-    public function getPublicController()
-    {
-        return $this->publicController;
-    }
-
-    /**
-     * @codeCoverageIgnore
-     * @param AbstractPluginManager $publicController
-     *
-     * @return static
-     */
-    public function setPublicController($publicController)
-    {
-        $this->publicController = $publicController;
 
         return $this;
     }
@@ -140,7 +114,6 @@ abstract class AbstractRouteService implements RouteServiceInterface
      */
     protected function addCallableRoute($routeRef, $action, $method = 'ALL', $controller = null)
     {
-        $controller = $controller ? $controller : $this->publicController;
         foreach ($this->getPatterns($routeRef) as $pattern) {
             $this->addRoute($pattern, [$controller, $action], $method);
         }
@@ -198,4 +171,22 @@ abstract class AbstractRouteService implements RouteServiceInterface
         $patterns = is_array($patterns) ? $patterns : [$patterns];
         return $patterns;
     }
+
+    /**
+     * @param \WonderWp\Component\PluginSkeleton\AbstractPluginManager $manager
+     * @param           $type
+     * @param           $action
+     * @param string    $method
+     */
+    protected function expandRoutes($manager, $type, $action, $method = 'ALL')
+    {
+        if (is_array($manager->getConfig($type))) {
+            foreach ($manager->getConfig($type) as $typeUrl) {
+                $this->routes[] = [ltrim($typeUrl, '/'), [$manager->getController('public'), $action], $method];
+            }
+        } else {
+            $this->routes[] = [ltrim($manager->getConfig($type), '/'), [$manager->getController('public'), $action], $method];
+        }
+    }
+
 }

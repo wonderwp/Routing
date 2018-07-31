@@ -25,7 +25,7 @@ class Router extends AbstractRouter
         add_action('init', [$this, 'registerRules']);
         add_action('admin_init', [$this, 'flushRules']);
         add_action('parse_request', [$this, 'matchRequest']);
-        add_action('template_redirect', [$this, 'callRouteHook'],5);
+        add_action('template_redirect', [$this, 'callRouteHook'], 5);
         add_filter('query_vars', [$this, 'registerQueryVars']);
     }
 
@@ -40,6 +40,7 @@ class Router extends AbstractRouter
 
     /**
      * @param RouteServiceInterface[] $services
+     *
      * @codeCoverageIgnore
      *
      * @return static
@@ -72,7 +73,7 @@ class Router extends AbstractRouter
                 /** @var RouteServiceInterface $service */
                 $serviceRoutes = $service->getRoutes();
                 if (!empty($serviceRoutes)) {
-                    $serviceName   = get_class($service);
+                    $serviceName = get_class($service);
                     foreach ($serviceRoutes as $i => $r) {
                         if (is_array($r)) {
                             $r = new Route($r);
@@ -176,13 +177,13 @@ class Router extends AbstractRouter
      */
     public function matchRequest(\WP $environment)
     {
-        $matched_route = $this->match($environment->query_vars);
+        $request       = Request::getInstance();
+        $matched_route = $this->match($environment->query_vars, $request->getMethod());
 
         if ($matched_route instanceof Route) {
             $this->matchedRoute = $matched_route;
             //Add query vars to request object
-            $path    = $this->matchedRoute->getPath();
-            $request = Request::getInstance();
+            $path = $this->matchedRoute->getPath();
             if (strpos($path, '{') !== false) {
                 preg_match_all('/{(.*?)}/', $path, $wildCardsMatchs);
                 if (!empty($wildCardsMatchs[1])) {
@@ -207,10 +208,11 @@ class Router extends AbstractRouter
 
     /**
      * @param array $query_variables
+     * @param string $requestMethod (http request method)
      *
      * @return Route|\WP_Error
      */
-    public function match(array $query_variables)
+    public function match(array $query_variables, $requestMethod)
     {
         //Check Route Variable
         if (empty($query_variables[$this->routeVariable])) {
@@ -223,9 +225,8 @@ class Router extends AbstractRouter
         }
         //Check Route Method
         /** @var Route $route */
-        $route         = $this->routes[$route_name];
-        $routeMethod   = $route->getMethod();
-        $requestMethod = Request::getInstance()->getMethod();
+        $route       = $this->routes[$route_name];
+        $routeMethod = $route->getMethod();
         if ($routeMethod != 'ALL' && $routeMethod !== $requestMethod) {
             return new \WP_Error('method_not_authorized');
         }

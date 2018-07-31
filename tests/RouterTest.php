@@ -1,16 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jeremydesvaux
- * Date: 26/06/2017
- * Time: 15:24
- */
 
-namespace WonderWp\Framework\Route;
+namespace WonderWp\Component\Routing;
 
-use WonderWp\Framework\AbstractPlugin\AbstractPluginManager;
+use PHPUnit\Framework\TestCase;
+use WonderWp\Component\PluginSkeleton\AbstractPluginManager;
+use WonderWp\Component\Routing\Route\AbstractRouteService;
+use WonderWp\Component\Routing\Route\Route;
+use WonderWp\Component\Routing\Router\Router;
 
-class RouterTest extends \PHPUnit_Framework_TestCase
+class RouterTest extends TestCase
 {
     /** @var  Router */
     private $router;
@@ -97,5 +95,7 @@ class FakeRouteService extends AbstractRouteService
     }
 }
 
-class FakeManager extends AbstractPluginManager{
+class FakeManager extends AbstractPluginManager
+{
+
 }

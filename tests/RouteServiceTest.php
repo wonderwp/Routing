@@ -1,16 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jeremydesvaux
- * Date: 26/06/2017
- * Time: 17:12
- */
 
-namespace WonderWp\Framework\Route;
+namespace WonderWp\Component\Routing\Route;
 
-use WonderWp\Framework\AbstractPlugin\AbstractPluginManager;
+use PHPUnit\Framework\TestCase;
+use WonderWp\Component\PluginSkeleton\AbstractPluginManager;
+use WonderWp\Component\Routing\FakeManager;
+use WonderWp\Component\Routing\FakeRouteService;
 
-class RouteServiceTest extends \PHPUnit_Framework_TestCase
+class RouteServiceTest extends TestCase
 {
 
     /**

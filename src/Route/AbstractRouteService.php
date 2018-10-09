@@ -168,7 +168,7 @@ abstract class AbstractRouteService extends AbstractService implements RouteServ
         if (!$patterns) {
             $patterns = [(get_locale()) => $routeRef];
         }
-        $patterns = is_array($patterns) ? $patterns : [$patterns];
+        $patterns = is_array($patterns) ? $patterns : [(get_locale())=>$patterns];
         return $patterns;
     }
 

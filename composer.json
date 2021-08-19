@@ -16,11 +16,11 @@
         }
     ],
     "require": {
-        "php": "~5.6|~7",
+        "php": ">=7.1",
         "wonderwp/http-foundation": "^1.0",
         "wonderwp/service": "^1.0"
     },
-    "require-dev": {        
+    "require-dev": {
         "johnpbloch/wordpress": "^4.7"
     },
     "autoload": {

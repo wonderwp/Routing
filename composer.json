@@ -1,33 +1,33 @@
 {
-    "name": "wonderwp/routing",
-    "type": "library",
-    "description": "WonderWp Routing Component",
-    "keywords": ["routing", "router", "URL", "URI"],
-    "homepage": "https://wonderwp.com",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Jeremy Desvaux",
-            "homepage": "http://jdmweb.com"
-        },
-        {
-            "name": "WonderWp Community",
-            "homepage": "https://wonderwp.com/contributors"
-        }
-    ],
-    "require": {
-        "php": "~5.6|~7",
-        "wonderwp/http-foundation": "^1.0",
-        "wonderwp/service": "^1.0"
+  "name": "wonderwp/routing",
+  "description": "WonderWp Routing Component",
+  "type": "library",
+  "keywords": ["routing", "router", "URL", "URI","WonderWp","WordPress"],
+  "homepage": "https://github.com/wonderwp/Routing",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jeremy Desvaux",
+      "homepage": "https://jdmweb.com"
     },
-    "require-dev": {        
-        "johnpbloch/wordpress": "^4.7"
-    },
-    "autoload": {
-        "psr-4": {"WonderWp\\Component\\Routing\\": "src"},
-        "exclude-from-classmap": [
-            "/tests/"
-        ]
-    },
-    "minimum-stability": "dev"
+    {
+      "name": "WonderWp Community",
+      "homepage": "http://wonderwp.net/Contribution/Contributors.html"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "wonderwp/http-foundation": "^1.0",
+    "wonderwp/service": "^1.0"
+  },
+  "require-dev": {
+    "johnpbloch/wordpress": "^4.7"
+  },
+  "autoload": {
+    "psr-4": {"WonderWp\\Component\\Routing\\": "src"},
+    "exclude-from-classmap": [
+      "/tests/"
+    ]
+  },
+  "minimum-stability": "dev"
 }

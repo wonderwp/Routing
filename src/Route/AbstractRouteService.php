@@ -184,7 +184,7 @@ abstract class AbstractRouteService extends AbstractService implements RouteServ
             foreach ($manager->getConfig($type) as $typeUrl) {
                 $this->routes[] = [ltrim($typeUrl, '/'), [$manager->getController('public'), $action], $method];
             }
-        } else {
+        } elseif(!empty($manager->getConfig($type))) {
             $this->routes[] = [ltrim($manager->getConfig($type), '/'), [$manager->getController('public'), $action], $method];
         }
     }

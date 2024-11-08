@@ -12,9 +12,6 @@ abstract class AbstractRouteService extends AbstractService implements RouteServ
     /** @var array */
     protected $routes = [];
 
-    /** @var \WonderWp\Component\PluginSkeleton\AbstractPluginManager */
-    protected $manager;
-
     /**
      * @codeCoverageIgnore
      * Get registered routes. Must be overriden.
@@ -37,26 +34,6 @@ abstract class AbstractRouteService extends AbstractService implements RouteServ
      *   }
      */
     abstract public function getRoutes();
-
-    /**
-     * @return \WonderWp\Component\PluginSkeleton\AbstractPluginManager
-     */
-    public function getManager()
-    {
-        return $this->manager;
-    }
-
-    /**
-     * @param \WonderWp\Component\PluginSkeleton\AbstractPluginManager $manager
-     *
-     * @return static
-     */
-    public function setManager($manager)
-    {
-        $this->manager = $manager;
-
-        return $this;
-    }
 
     /**
      * Generate an url for a given route reference and parameters.
